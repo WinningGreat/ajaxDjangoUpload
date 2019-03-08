@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block script %}
+
+<script src="{% static "js/jquery-3.3.1.js"%}"></script>
+<script src="{% static "js/upload.js"%}"></script>
+{% endblock %}
+{% block content %}
+    <form id="upload_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="myFile" name="myFile" multiple>
+        <input type="submit" id="btn_submit" value="Upload">
+    </form>
+    <p id="num_upload"></p>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
+
+{% if uploaded_file_url %}
+{% for uploaded_file_url in uploaded_file_urls %}
+<p>File uploaded at: <a href="{{uploaded_file_url}}"></a></p>
+{% endfor %}
+{% endif %}
+{% endblock %}
